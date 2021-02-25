@@ -22,15 +22,22 @@
     <script>
       $(function() {
 
+        // jquery.create module
+        // cf. https://github.com/ern0/jquery.create
+
         $.create = function (tag, id) {
           elm = document.createElement(tag.toUpperCase());
           if (typeof (id) != "undefined") elm.id = id;
           return $(elm);
         };
 
+        // preliminaries
+
         let colors = ['btn-warning','btn-danger','btn-success','btn-info','btn-secondary','btn-primary']
         let rows = 8
         let columns = 8
+
+        // create buttons
 
         for (let i = 0; i < columns; i++) {
           $(".container").append(
@@ -39,16 +46,73 @@
 
           for (let j = 0; j < rows; j++) {
             $("#row" + i).append(
-              $.create("div").addClass("col-1 border").attr("id", "x"+i+"y"+j)
+              $.create("div").addClass("col-1 border").attr("id", "grid-x"+i+"y"+j)
             )
 
-            let color = colors[Math.floor(Math.random() * colors.length)]
+            let randomColor = colors[Math.floor(Math.random() * colors.length)]
 
-            $("#x"+i+"y"+j).append(
-              $.create("button").addClass("btn my-1 " + color).html("hello")
+            $("#grid-x"+i+"y"+j).append(
+              $.create("button").addClass("btn my-1 " + randomColor).html("hello").attr("data-x",i).attr("data-y",j).attr("id","btn"+i+j)
             )
           }
         }
+
+        // handle clicks
+
+        let clickCount = 0
+        let buttonOne;
+        let buttonTwo;
+
+        $("button").click(function(){
+          clickCount++
+          
+          if (clickCount === 1) {
+            let buttonOneX = $(this).attr("data-x")
+            let buttonOneY = $(this).attr("data-y")
+            buttonOne = {x: buttonOneX, y: buttonOneY}
+            console.log(buttonOne)
+          }
+
+          if (clickCount === 2) {
+            let buttonTwoX = $(this).attr("data-x")
+            let buttonTwoY = $(this).attr("data-y")
+            buttonTwo = {x: buttonTwoX, y: buttonTwoY}
+            console.log(buttonTwo)
+
+            clickCount = 0
+
+            if (areAdjacent(buttonOne,buttonTwo)) {
+              swap(buttonOne,buttonTwo)
+            } else {
+              // unswap
+            }
+          }
+        })
+
+        function xor(a,b) {
+          return a ? !b : b
+        }
+
+        function areAdjacent(one,two) {
+          let x = Math.abs(one.x - two.x) === 1
+          let y = Math.abs(one.y - two.y) === 1
+          return xor(x,y)
+        }
+
+        function swap(one,two) {
+          let oneID = "#btn" + one.x + one.y
+          let twoID = "#btn" + two.x + two.y
+
+          oneColor = $(oneID).attr("class").split(" ").slice(-1)
+          twoColor = $(twoID).attr("class").split(" ").slice(-1)
+          
+          $(oneID).removeClass(oneColor)
+          $(twoID).removeClass(twoColor)
+
+          $(oneID).addClass(twoColor)
+          $(twoID).addClass(oneColor)
+        }
+
       });
     </script>
   
