@@ -46,7 +46,7 @@
 
           for (let j = 0; j < rows; j++) {
             $("#row" + i).append(
-              $.create("div").addClass("col-1 border").attr("id", "grid-x"+i+"y"+j)
+              $.create("div").addClass("col-1 border bg-dark").attr("id", "grid-x"+i+"y"+j)
             )
 
             let randomColor = colors[Math.floor(Math.random() * colors.length)]
@@ -112,6 +112,34 @@
           $(oneID).addClass(twoColor)
           $(twoID).addClass(oneColor)
         }
+
+        // find sets
+
+        let sets = []
+
+        // get colors and ids
+        console.log("horizontal: ")
+        for (let i = 0; i < rows; i++) {
+          let thisRow = []
+          for(let j = 0; j < columns; j++) {
+            let thisID = "#btn" + i + j
+            let thisColor = $(thisID).attr("class").split(" ").slice(-1)[0]
+            thisRow.push(
+              {
+                id: thisID,
+                color: thisColor
+              }
+            )
+          }
+          // find groups of three
+          console.log(thisRow)
+          for (let i = 1; i < thisRow.length - 1; i++) {
+            if (thisRow[i].color === thisRow[i - 1].color && thisRow[i].color === thisRow[i + 1].color) {
+              sets.push([thisRow[i - 1].id, thisRow[i].id, thisRow[i + 1].id])
+            }
+          }
+        }
+        console.log(sets)
 
       });
     </script>
