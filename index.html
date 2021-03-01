@@ -52,7 +52,7 @@
             let randomColor = colors[Math.floor(Math.random() * colors.length)]
 
             $("#grid-x"+i+"y"+j).append(
-              $.create("button").addClass("btn my-1 " + randomColor).html("hello").attr("data-x",i).attr("data-y",j).attr("id","btn"+i+j)
+              $.create("button").addClass("btn my-1 " + randomColor).html("hello world").attr("data-x",i).attr("data-y",j).attr("id","btn"+i+j)
             )
           }
         }
@@ -100,30 +100,33 @@
         }
 
         function swap(one,two) {
+          // build id of button
           let oneID = "#btn" + one.x + one.y
           let twoID = "#btn" + two.x + two.y
 
+          // access color class - very ugly!
           oneColor = $(oneID).attr("class").split(" ").slice(-1)
           twoColor = $(twoID).attr("class").split(" ").slice(-1)
           
+          // remove old class
           $(oneID).removeClass(oneColor)
           $(twoID).removeClass(twoColor)
 
+          // add new class
           $(oneID).addClass(twoColor)
           $(twoID).addClass(oneColor)
         }
 
         // find sets
 
-        let sets = []
+        const sets = []
 
         // get colors and ids
-        console.log("horizontal: ")
         for (let i = 0; i < rows; i++) {
           let thisRow = []
           for(let j = 0; j < columns; j++) {
             let thisID = "#btn" + i + j
-            let thisColor = $(thisID).attr("class").split(" ").slice(-1)[0]
+            let thisColor = $(thisID).attr("class").split(" ").slice(-1)[0] // ugly!!
             thisRow.push(
               {
                 id: thisID,
@@ -132,14 +135,33 @@
             )
           }
           // find groups of three
-          console.log(thisRow)
-          for (let i = 1; i < thisRow.length - 1; i++) {
-            if (thisRow[i].color === thisRow[i - 1].color && thisRow[i].color === thisRow[i + 1].color) {
-              sets.push([thisRow[i - 1].id, thisRow[i].id, thisRow[i + 1].id])
+          //console.log(thisRow)
+          let thisRowSets = []
+          let thisSet = []
+          thisSet.push(thisRow[0])
+          for (let i = 1; i < thisRow.length; i++) {
+            //console.log(`first: ${thisRow[i].color}\nsecond: ${thisRow[i - 1].color}\nsame: ${thisRow[i].color === thisRow[i - 1].color}`)
+            if (thisRow[i].color === thisRow[i - 1].color) {
+              thisSet.push(thisRow[i])
+            } else {
+              //console.log("didn't push it!")
+              thisRowSets.push(thisSet)
+              thisSet = []
+              thisSet.push(thisRow[i])
             }
           }
+          let threeOrMore = thisRowSets.filter((set) => set.length > 2)
+          if (threeOrMore.length) {
+            sets.push(threeOrMore)
+          }
+          
         }
-        console.log(sets)
+
+        // remove sets
+
+        let toErase = sets.flat().flat()
+        console.log(toErase)
+        toErase.map(button => $(button.id).remove())
 
       });
     </script>
