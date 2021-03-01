@@ -23,3 +23,5 @@ NOTE TO SELF: This app is written such that the data is stored in the DOM. That 
 ## Step Five: Make The Sets Disappear
 
 When the grid appears, wait two seconds, and then make all the sets of three or more disappear. For now, only the horizontal sets - I can deal with the vertical ones later. And for now, just make them disappear - don't worry yet about the buttons above moving down to take their place.
+
+NOTE TO SELF: At the time of this writing, it removes SOME of the sets but not all of them. I don't know what's going on!
