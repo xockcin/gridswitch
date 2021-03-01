@@ -33,4 +33,4 @@ NOTE TO SELF: I opted to use JQuery effects, which forced me to find a newer CDN
 
 ## Step Seven: Make The Buttons Above The Empty Squares Move Down To Fill The Space
 
-This will be tricky
+This will be tricky.
