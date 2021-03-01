@@ -150,6 +150,9 @@
               thisSet.push(thisRow[i])
             }
           }
+          if (thisSet.length) {
+            thisRowSets.push(thisSet)
+          }
           let threeOrMore = thisRowSets.filter((set) => set.length > 2)
           if (threeOrMore.length) {
             sets.push(threeOrMore)
