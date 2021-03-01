@@ -25,3 +25,4 @@ NOTE TO SELF: This app is written such that the data is stored in the DOM. That 
 When the grid appears, wait two seconds, and then make all the sets of three or more disappear. For now, only the horizontal sets - I can deal with the vertical ones later. And for now, just make them disappear - don't worry yet about the buttons above moving down to take their place.
 
 NOTE TO SELF: At the time of this writing, it removes SOME of the sets but not all of them. I don't know what's going on!
+Addendum: Ok, I know what the problem is: it's not counting the sets that are all the way to the right. Somehow those aren't getting added to the big envelope. I knew this was going to be a problem, and now I have to figure it out.
