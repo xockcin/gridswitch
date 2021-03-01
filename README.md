@@ -26,3 +26,11 @@ When the grid appears, wait two seconds, and then make all the sets of three or 
 
 NOTE TO SELF: At the time of this writing, it removes SOME of the sets but not all of them. I don't know what's going on!
 Addendum: Ok, I know what the problem is: it's not counting the sets that are all the way to the right. Somehow those aren't getting added to the big envelope. I knew this was going to be a problem, and now I have to figure it out.
+
+## Step Six: Make The Sets Wait A Second Before They Disappear
+
+NOTE TO SELF: I opted to use JQuery effects, which forced me to find a newer CDN link. Interesting.
+
+## Step Seven: Make The Buttons Above The Empty Squares Move Down To Fill The Space
+
+This will be tricky
